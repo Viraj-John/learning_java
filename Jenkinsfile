@@ -3,6 +3,11 @@ pipeline
  agent any
  parameters {
          booleanParam(name: 'ENABLE_DEPLOY_STAGE', defaultValue: false, description: 'Check to enable the Deployment stage.')
+         choice(
+                         name: 'Environment',
+                         choices: ['dev', 'test', 'prod'],
+                         description: 'Select the target environment'
+                     )
      }
  tools {
                  maven 'M3' // 'M3' should match the name configured in Global Tool Configuration
@@ -24,6 +29,14 @@ steps {
  sh 'mvn clean install'
 }
 }
+stage('Deploy') {
+                steps {
+                    script {
+                        echo "Deploying to ${params.Environment} environment"
+                        // Add your deployment logic here, using params.Environment
+                    }
+                }
+            }
 stage("Run Code")
 {
   steps {
