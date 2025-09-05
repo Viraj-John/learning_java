@@ -44,4 +44,20 @@ stage("Run Code")
   }
 }
 }
+post {
+        success {
+            mail to: 'tovirajjohn@gmail.com',
+                 subject: "SUCCESS: ${currentBuild.fullDisplayName}",
+                 body: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
+        }
+        failure {
+            mail to: 'tovirajjohn@gmail.com',
+                 subject: "FAILURE: ${currentBuild.fullDisplayName}",
+                 body: "The pipeline ${currentBuild.fullDisplayName} failed. Check console output for details."
+        }
+        always {
+            // Optional: Actions that run regardless of build status
+            echo "Pipeline completed."
+        }
+    }
 }
