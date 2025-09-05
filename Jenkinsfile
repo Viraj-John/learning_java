@@ -6,6 +6,12 @@ pipeline
              }
 stages{
 
+stage("Check Java Version")
+{
+steps {
+sh 'java -version'
+}
+}
 stage("Build Code")
 {
 steps {
